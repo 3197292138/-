@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>亚洲沐尘100选手信息</title>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft Yahei", sans-serif;
+            font-size: 16px;
+            /* 给左侧导航栏留出位置，避免内容被遮挡 */
+            padding-left: 60px;
+            /* 开启平滑滚动（全局生效） */
+            scroll-behavior: smooth;
+            /* 新增：默认基准字号，通过修改这个属性控制全局文字大小 */
+            font-size: 16px;
+        }
+
+        /* 左侧垂直导航栏样式 */
+        .sidebar {
+            position: fixed; /* 固定在左侧，不随页面滚动 */
+            left: 0;
+            top: 0;
+            width: 60px;
+            height: 100vh; /* 高度占满整个视口 */
+            background-color: #1e293b; /* 深色背景 */
+            display: flex;
+            flex-direction: column; /* 垂直排列 */
+            align-items: center; /* 水平居中 */
+            padding-top: 20px;
+            z-index: 999; /* 保证导航栏在最上层，不被遮挡 */
+        }
+
+        /* 侧边栏图标链接 */
+        .sidebar a {
+            color: #cbd5e1; /* 图标默认颜色 */
+            font-size: 24px; /* 图标大小 */
+            margin-bottom: 32px; /* 图标之间的间距 */
+            text-decoration: none;
+            transition: color 0.3s ease; /* 悬停过渡效果 */
+        }
+
+        /* 鼠标悬停时图标变亮 */
+        .sidebar a:hover {
+            color: #ffffff;
+        }
+
+        /* 字号切换栏样式 - 核心修改：靠右对齐 + 固定宽度 */
+        .font-size-controls {
+            margin-bottom: 30px;
+            text-align: right; /* 改为靠右对齐 */
+            padding: 0 20px;
+            max-width: 1200px; /* 和内容容器同宽，保证对齐 */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .font-size-link {
+            margin: 0 8px;
+            text-decoration: none;
+            color: #333;
+            border: 1px solid #ccc;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer; /* 加鼠标指针，提示可点击 */
+        }
+
+        .font-size-link:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* 统一内容容器 */
+        .content-wrapper {
+            text-align: center;
+            line-height: 1.8;
+            max-width: 1200px; /* 限制最大宽度，避免太宽 */
+            margin: 0 auto;    /* 整体居中 */
+            padding: 20px;
+        }
+
+        /* 不同层级文本样式 - 改为相对单位，跟随body字号变化 */
+        .content-wrapper h1 {
+            font-size: 2em; /* 原为32px，改为相对单位 */
+            margin: 15px 0;
+        }
+
+        .content-wrapper p {
+            font-size: 1.125em; /* 原为18px，改为相对单位 */
+            margin: 10px 0;
+            color: #666;
+        }
+
+        .content-wrapper h2 {
+            font-size: 1.5em; /* 原为24px，改为相对单位 */
+            margin: 10px 0;
+            font-weight: normal;
+        }
+
+        hr {
+            margin: 20px auto;
+            width: 80%;
+            border: none;
+            border-top: 1px solid #ccc;
+        }
+
+        /* 车手/赛事分组标题 */
+        .group-title {
+            font-size: 1.375em; /* 原为22px，改为相对单位 */
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            color: #222;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        /* 车手信息容器：每行固定2个，强制左右排列 */
+        .drivers-container {
+            display: grid;          /* 用grid布局更易控制列数 */
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); /* 最小450px一列，自动适配 */
+            gap: 20px;              /* 行列间距统一 */
+            margin: 10px 0 30px 0;
+            padding: 0 10px;
+        }
+
+        /* 单个车手/赛事信息样式 - 改为相对单位 */
+        .driver-item {
+            font-size: 1.25em; /* 原为20px，改为相对单位 */
+            padding: 12px 20px;
+            border-radius: 6px;
+            background-color: #f8f8f8;
+            white-space: nowrap;    /* 防止单行内容换行 */
+            text-align: left;       /* 内容靠左，更整洁 */
+            border: 1px solid #eee; /* 加边框，区分更明显 */
+        }
+    </style>
+    <!-- 引入 Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 左侧垂直导航栏 -->
+    <div class="sidebar">
+        <!-- 给首页图标添加id，方便JS绑定事件 -->
+        <a href="#" id="home-link"><i class="fa-solid fa-house"></i></a>       
+        <!-- 给定位图标添加id，方便绑定跳转事件 -->
+        <a href="#" id="map-link"><i class="fa-solid fa-location-dot"></i></a>
+        <a href="./报名表.html"><i class="fa-solid fa-file-lines"></i></a>
+        <a href="./亚洲沐尘 100 官方客服.html"><i class="fa-solid fa-message"></i></a>
+       
+    </div>
+
+    <!-- 字号切换栏 -->
+    <div class="font-size-controls">
+        字号：
+        <span class="font-size-link" data-size="large">大</span>
+        <span class="font-size-link" data-size="medium">中</span>
+        <span class="font-size-link" data-size="small">小</span>
+    </div>
+
+    <!-- 所有内容包裹容器 -->
+    <div class="content-wrapper">
+        <h1>亚洲沐尘100选手信息公式</h1>
+        <p>信息来源：亚洲沐尘100选手联络组</p>
+        <h1><a href="./亚洲沐尘100选手信息.html">国家车手</a> <a href="./个人车手.html">个人车手</a></h1>
+        <h2>(按照车手首字母排序)</h2>
+        <hr>
+        
+        <!-- 红牛车队 -->
+        <div class="group-title">红牛车队</div>
+        <div class="drivers-container">
+            <div class="driver-item"> 马克斯·维斯塔潘（Max Verstappen，荷兰）</div>
+            <div class="driver-item"> 利亚姆·劳森（Liam Lawson，新西兰）</div>
+        </div>
+
+        <!-- 法拉利车队 -->
+        <div class="group-title">法拉利车队</div>
+        <div class="drivers-container">
+            <div class="driver-item">夏尔·勒克莱尔（Charles Leclerc，摩纳哥）</div>
+            <div class="driver-item">刘易斯·汉密尔顿（Lewis Hamilton，英国）</div>
+        </div>
+
+        <!-- 迈凯伦车队 -->
+        <div class="group-title">迈凯伦车队</div>
+        <div class="drivers-container">
+            <div class="driver-item">兰多·诺里斯（Lando Norris，英国）</div>
+            <div class="driver-item">奥斯卡·皮亚斯特里（Oscar Piastri，澳大利亚）</div>
+        </div>
+
+        <!-- 阿斯顿马丁车队 -->
+        <div class="group-title">阿斯顿马丁车队</div>
+        <div class="drivers-container">
+            <div class="driver-item">兰斯·斯特罗尔（Lance Stroll，加拿大）</div>
+            <div class="driver-item">刘易斯·汉密尔顿（Lewis Hamilton，英国）</div>
+        </div>
+
+        <!-- F1传奇车手 -->
+        <div class="group-title">F1传奇车手</div>
+        <div class="drivers-container">
+            <div class="driver-item">迈克尔·舒马赫（Michael Schumacher，德国）</div>
+            <div class="driver-item">塞巴斯蒂安·维特尔（Sebastian Vettel，德国）</div>
+            <div class="driver-item">费尔南多·阿隆索（Fernando Alonso，西班牙）</div>
+            <div class="driver-item">埃尔顿·塞纳（Ayrton Senna，巴西）</div>
+            <div class="driver-item">阿兰·普罗斯特（Alain Prost，法国）</div>
+            <div class="driver-item">尼基·劳达（Niki Lauda，奥地利）</div>
+            <div class="driver-item">胡安·方吉奥（Juan Manuel Fangio，阿根廷）</div>
+        </div>
+
+        <!-- 其他赛事车手 -->
+        <div class="group-title">其他赛事车手</div>
+        <div class="drivers-container">
+            <div class="driver-item">塞巴斯蒂安·勒布（Sébastien Loeb，法国）</div>
+            <div class="driver-item">科林·麦克雷（Colin McRae，英国）</div>
+            <div class="driver-item">吉姆·克拉克（Jim Clark，英国）</div>
+        </div>
+    </div>
+
+    <!-- 字号切换 + 回到顶部 + 地图跳转JS逻辑 -->
+    <script>
+        // 1. 字号切换逻辑 - 核心修改：控制整个body的字号
+        const sizeLinks = document.querySelectorAll('.font-size-link');
+        const body = document.querySelector('body');
+        // 基准字号（默认16px）
+        const baseFontSize = 16;
+        const fontSizeMap = {
+            large: 1.5,  // 大：16*1.5=24px
+            medium: 1,   // 中：还原默认16px
+            small: 0.8   // 小：16*0.8=12.8px
+        };
+
+        sizeLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const size = this.dataset.size;
+                // 修改body的字号，所有用em单位的元素会同步变化
+                body.style.fontSize = `${fontSizeMap[size] * baseFontSize}px`;
+            });
+        });
+
+        // 2. 回到顶部逻辑（首页图标点击事件）
+        const homeLink = document.getElementById('home-link');
+        homeLink.addEventListener('click', function(e) {
+            e.preventDefault(); // 阻止默认跳转行为
+            // 平滑滚动到页面顶部
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // 平滑滚动，去掉则为瞬间跳转
+            });
+        });
+
+        // 3. 新增：定位图标跳转百度地图
+        const mapLink = document.getElementById('map-link');
+        mapLink.addEventListener('click', function(e) {
+            e.preventDefault(); // 阻止默认锚点行为
+            // 跳转到指定的百度地图链接
+            window.location.href = 'https://map.baidu.com/@12904465,3317427,13';
+            // 如需在新标签页打开，替换为：window.open('https://map.baidu.com/@12904465,3317427,13', '_blank');
+        });
+    </script>
+</body>
+</html>

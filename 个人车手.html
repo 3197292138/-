@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人车手信息</title>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft Yahei", sans-serif;
+            font-size: 16px;
+            padding-left: 60px;
+            scroll-behavior: smooth; /* 平滑滚动 */
+        }
+
+        /* 左侧垂直导航栏样式（和主页面一致） */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 60px;
+            height: 100vh;
+            background-color: #1e293b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            z-index: 999;
+        }
+
+        .sidebar a {
+            color: #cbd5e1;
+            font-size: 24px;
+            margin-bottom: 32px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            color: #ffffff;
+        }
+
+        /* 个人车手页面内容样式（可自定义） */
+        .content-wrapper {
+            text-align: center;
+            line-height: 1.8;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .content-wrapper h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .content-wrapper p {
+            font-size: 18px;
+            color: #666;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 左侧垂直导航栏 -->
+    <div class="sidebar">
+        <a href="#" id="home-link"><i class="fa-solid fa-house"></i></a>
+        <a href="#"><i class="fa-solid fa-location-dot"></i></a>
+        <a href="#"><i class="fa-solid fa-file-lines"></i></a>
+        <a href="#"><i class="fa-solid fa-message"></i></a>
+    </div>
+
+    <!-- 个人车手页面内容 -->
+    <div class="content-wrapper">
+        <h1>亚洲沐尘100选手信息公式</h1>
+        <p>信息来源：亚洲沐尘100选手联络组</p>
+        <hr>
+        <!-- 可添加更多个人车手内容 -->
+    </div>
+
+    <script>
+        // 首页图标点击事件：返回上一页并回到顶部
+        const homeLink = document.getElementById('home-link');
+        homeLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // 方案1：返回上一页（主页面），并让主页面回到顶部
+            // 原理：先记录主页面的滚动位置为0，再返回
+            if (window.history.length > 1) {
+                // 1. 告诉主页面返回后滚动到顶部（通过sessionStorage传递状态）
+                sessionStorage.setItem('scrollToTop', 'true');
+                // 2. 返回上一页（主页面）
+                window.history.back();
+            } else {
+                // 如果没有上一页，直接跳回主页面
+                window.location.href = './index.html'; // 替换成你的主页面文件名
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>亚洲沐尘 100 官方客服</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            /* 移除左侧内边距，改为通过布局计算 */
+            padding: 0;
+            margin: 0;
+            background-color: #1e293b; /* 统一背景色 */
+        }
+
+        /* 整体布局容器 - 无白边铺满屏幕 */
+        .app-container {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* 侧边栏 - 保持原有样式，背景色统一 */
+        .sidebar {
+            width: 60px;
+            height: 100vh;
+            background-color: #1e293b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            z-index: 999;
+            border-right: 1px solid #2a384e; /* 细微分隔线 */
+        }
+
+        .sidebar a {
+            color: #cbd5e1;
+            font-size: 24px;
+            margin-bottom: 32px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            color: #ffffff;
+        }
+
+        /* 客服主容器 - 占满剩余屏幕 */
+        .chat-main {
+            flex: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #1e293b; /* 统一背景色 */
+        }
+
+        /* 客服头部 - 深色适配 */
+        .chat-header {
+            background-color: #1e293b;
+            color: #fff;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+            border-bottom: 1px solid #2a384e;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #2a384e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #cbd5e1;
+        }
+
+        .chat-info {
+            flex: 1;
+        }
+
+        .chat-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .online-status {
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #94a3b8;
+        }
+
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #00e070;
+        }
+
+        /* 消息区域 - 深色背景适配 */
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #1e293b;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background-color: #2a384e;
+            border-radius: 3px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background-color: #1e293b;
+        }
+
+        .message {
+            margin-bottom: 16px;
+            display: flex;
+            max-width: 80%;
+        }
+
+        .message-time {
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: #94a3b8;
+            margin: 10px 0;
+        }
+
+        .message-support {
+            align-self: flex-start;
+            flex-direction: row;
+        }
+
+        .message-user {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+            margin-left: auto;
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #2a384e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: #cbd5e1;
+        }
+
+        .message-content {
+            margin: 0 10px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            line-height: 1.4;
+            font-size: 14px;
+        }
+
+        /* 客服消息 - 深色适配 */
+        .message-support .message-content {
+            background-color: #2a384e;
+            border: 1px solid #334155;
+            border-top-left-radius: 0;
+            color: #e2e8f0;
+        }
+
+        /* 用户消息 - 深色适配 */
+        .message-user .message-content {
+            background-color: #3b82f6;
+            color: #ffffff;
+            border-top-right-radius: 0;
+        }
+
+        /* 输入区域 - 深色适配 */
+        .chat-input {
+            padding: 16px;
+            background-color: #1e293b;
+            border-top: 1px solid #2a384e;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        #message-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #2a384e;
+            border-radius: 24px;
+            outline: none;
+            font-size: 14px;
+            resize: none;
+            height: 48px;
+            max-height: 120px;
+            background-color: #2a384e;
+            color: #e2e8f0;
+        }
+
+        #message-input::placeholder {
+            color: #94a3b8;
+        }
+
+        #message-input:focus {
+            border-color: #3b82f6;
+        }
+
+        #send-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #3b82f6;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+
+        #send-btn:hover {
+            background-color: #2563eb;
+        }
+
+        #send-btn:disabled {
+            background-color: #334155;
+            cursor: not-allowed;
+        }
+
+        /* 移动端适配 - 无白边 */
+        @media (max-width: 600px) {
+            .sidebar {
+                width: 50px;
+            }
+            .message {
+                max-width: 90%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- 整体容器 - 确保无白边铺满屏幕 -->
+    <div class="app-container">
+        <!-- 左侧导航 -->
+        <div class="sidebar">
+            <a href="./亚洲沐尘100选手信息.html"><i class="fa-solid fa-house"></i></a>
+            <a href="https://map.baidu.com/@12911843,3319972,13z"><i class="fa-solid fa-location-dot"></i></a>
+            <a href="./报名表.html"><i class="fa-solid fa-file-lines"></i></a>
+            <a href="./亚洲沐尘 100 官方客服.html"><i class="fa-solid fa-message"></i></a>
+        </div>
+
+        <!-- 客服主界面 -->
+        <div class="chat-main">
+            <div class="chat-header">
+                <div class="avatar">客</div>
+                <div class="chat-info">
+                    <div class="chat-title">亚洲沐尘 100 官方客服</div>
+                    <div class="online-status">
+                        <span class="online-dot"></span>在线客服 - 人工接待中
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chat-messages">
+                <div class="message-time">今天 10:00</div>
+                <div class="message message-support">
+                    <div class="message-avatar">客</div>
+                    <div class="message-content">
+                        您好！我是亚洲沐尘 100 官方客服，很高兴为您服务 😊<br>
+                        请问有什么可以帮助您的吗？
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <textarea id="message-input" placeholder="请输入您想咨询的问题..." oninput="autoResize(this)"></textarea>
+                <button id="send-btn" onclick="sendMessage()">✈️</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 自动调整输入框高度
+        function autoResize(textarea) {
+            textarea.style.height = '48px';
+            textarea.style.height = (textarea.scrollHeight) + 'px';
+            const sendBtn = document.getElementById('send-btn');
+            sendBtn.disabled = textarea.value.trim() === '';
+        }
+
+        // 发送消息
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const chat = document.getElementById('chat-messages');
+            chat.innerHTML += `
+                <div class="message message-user">
+                    <div class="message-avatar">我</div>
+                    <div class="message-content">${text}</div>
+                </div>
+            `;
+
+            // 清空输入框并恢复高度
+            input.value = '';
+            input.style.height = '48px';
+            document.getElementById('send-btn').disabled = true;
+            // 滚动到底部
+            chat.scrollTop = chat.scrollHeight;
+
+            // 模拟客服回复
+            setTimeout(() => {
+                const reply = [
+                    "您的问题我已收到，请加官方客服微信：3197293215",
+                ][Math.floor(Math.random() * 4)];
+
+                chat.innerHTML += `
+                    <div class="message message-support">
+                        <div class="message-avatar">客</div>
+                        <div class="message-content">${reply}</div>
+                    </div>
+                `;
+                chat.scrollTop = chat.scrollHeight;
+            }, 1000);
+        }
+
+        // 回车键发送消息
+        document.getElementById('message-input').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
